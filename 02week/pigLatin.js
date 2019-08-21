@@ -12,14 +12,16 @@ function pigLatin(word) {
 // Your code here
 let vowels = [ "a", "e", "i", "o", "u"];
 let splitWord = word.split("");
-// let i = splitWord;
-for(let i=0; i <= vowels.length; i++) {
-  //console.log(splitWord);
-  if (splitWord[i] == vowels[i]) {
-    return i
+let newWord = word;
+for(let j=0; j <= splitWord.length; j++) {
+  for(let i=0; i <= vowels.length; i++) { 
+    if(splitWord[j] == vowels[i]) {
+      console.log(j);
+      return word.substr(j).concat(newWord.slice(0, j), "ay");  
+    } 
+    //console.log(newWord)
+  } 
   }
-  };
-  //return splitWord;
 }
 
 
