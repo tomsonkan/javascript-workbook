@@ -9,9 +9,17 @@ const rl = readline.createInterface({
 
 
 function pigLatin(word) {
-
-  // Your code here
-
+// Your code here
+let vowels = [ "a", "e", "i", "o", "u"];
+let splitWord = word.split("");
+// let i = splitWord;
+for(let i=0; i <= vowels.length; i++) {
+  //console.log(splitWord);
+  if (splitWord[i] == vowels[i]) {
+    return i
+  }
+  };
+  //return splitWord;
 }
 
 
