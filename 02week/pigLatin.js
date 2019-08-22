@@ -10,6 +10,7 @@ const rl = readline.createInterface({
 
 function pigLatin(word) {
 // Your code here
+var p1 = word.toLowerCase().trim();
 let vowels = [ "a", "e", "i", "o", "u"];
 let splitWord = word.split("");
 let newWord = word;
