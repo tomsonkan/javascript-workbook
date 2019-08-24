@@ -93,8 +93,9 @@ function switchPlayer() {
 
 function ticTacToe(row, column) {
   board[row][column] = playerTurn;
-  switchPlayer();
   checkForWin();
+  switchPlayer();
+  
   
   }
   
