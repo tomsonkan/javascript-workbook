@@ -40,6 +40,8 @@ console.log(end);
 }
 
 function isLegal(startInput, endInput) {
+  console.log('start', startInput)
+  console.log('end', endInput)
   // Your code here
   // let start = stacks[startStack];
   // let end = stacks[endStack];
@@ -47,16 +49,22 @@ function isLegal(startInput, endInput) {
   console.log(startInput[startInput.length-1] < endlastElement || endlastElement === undefined)
   if(startInput[startInput.length-1] < endlastElement || endlastElement === undefined) {
   console.log(endlastElement);
+  console.log('here2')
   return true;
   } else {
-    return false;
+    console.log('here')
+  return false;
   }
   
 }
 
 function checkForWin() {
-  // Your code here
-  
+  if (stacks.b.length > 3) {
+    console.log("winner");
+    return true
+  }  
+  else {
+    return false}
 
 }
 //parent function
