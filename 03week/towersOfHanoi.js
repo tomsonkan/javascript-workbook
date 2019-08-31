@@ -23,10 +23,13 @@ function movePiece(startStack, endStack) {
   // Your code here
 let start = stacks[startStack];
 let end = stacks[endStack];
+//var starts = start.toLowerCase().trim();
+//var ends = end.toLowerCase().trim();
 let lastNumber = start.pop();
-console.log(lastNumber);
+  console.log(lastNumber);
 end.push(lastNumber);
-console.log(end);
+  console.log(end);
+checkForWin();
 
   // let start = startStack;
   // let end = endStack;
@@ -40,33 +43,35 @@ console.log(end);
 }
 
 function isLegal(startInput, endInput) {
-  console.log('start', startInput)
-  console.log('end', endInput)
-  // Your code here
-  // let start = stacks[startStack];
-  // let end = stacks[endStack];
+    console.log('start', startInput)
+    console.log('end', endInput)
   let endlastElement = endInput[endInput.length - 1];
-  console.log(startInput[startInput.length-1] < endlastElement || endlastElement === undefined)
+    console.log(startInput[startInput.length-1] < endlastElement || endlastElement === undefined)
   if(startInput[startInput.length-1] < endlastElement || endlastElement === undefined) {
-  console.log(endlastElement);
-  console.log('here2')
-  return true;
+    console.log(endlastElement);
+    console.log('here2')
+    return true;
   } else {
     console.log('here')
-  return false;
+    return false;
   }
-  
 }
 
+
+
 function checkForWin() {
-  if (stacks.b.length > 3) {
-    console.log("winner");
+  let stacksWin = stacks.b.length || stacks.c.length;
+
+  if (stacksWin > 3) {
+    console.log("Winner!!!!");
     return true
   }  
   else {
     return false}
 
 }
+
+
 //parent function
 function towersOfHanoi(startStack, endStack) {
   // Your code here
@@ -74,6 +79,7 @@ function towersOfHanoi(startStack, endStack) {
   const endInput = stacks[endStack];
   if (isLegal(startInput, endInput)) {
       movePiece(startStack, endStack);
+      
   }
   else {
     console.log('invalid')
