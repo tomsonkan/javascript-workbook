@@ -32,6 +32,7 @@ end.push(lastNumber);
 //add to last number in ending stack
   console.log(end);
 checkForWin();
+//reset()
 }
 
 function isLegal(startInput, endInput) {
@@ -54,12 +55,25 @@ function isLegal(startInput, endInput) {
 
 
 function checkForWin() {
-  let stacksWin = stacks.b.length || stacks.c.length;
+  let stacksWinB = stacks.b.length 
+  let stacksWinC = stacks.c.length;
+  let stacksa = stacks.a
+  let stacksb = stacks.b
+  let stacksc = stacks.c
 // if stack b or c has more than 3 numbers, then Winner!!!
-  if (stacksWin > 3) {
+  
+  if (stacksWinB > 3) {
     console.log("Winner!!!!");
+    stacksb.splice(0, 4);
+    stacksa.push(4, 3, 2, 1);
+// splice all elements from row b and push onto row a
     return true
-  }  
+  }  else if(stacksWinC > 3) {
+    console.log("Winner!!!!");
+    stacksc.splice(0, 4);
+    stacksa.push(4, 3, 2, 1);
+// splice all elements from row c and push onto row a
+  }
   else {
     return false}
 
@@ -74,7 +88,7 @@ function towersOfHanoi(startStack, endStack) {
   //define ending stack
   if (isLegal(startInput, endInput)) {
       movePiece(startStack, endStack);
-  // if move is legal than allow the piece to be moved    
+  // if move is legal then allow the piece to be moved    
   }
   else {
     console.log('invalid')
