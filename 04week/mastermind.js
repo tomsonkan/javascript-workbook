@@ -8,7 +8,7 @@ const rl = readline.createInterface({
 });
 
 let board = [];
-let solution = '';
+let solution = 'abcd';
 let letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
 
 function printBoard() {
@@ -28,13 +28,60 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-function generateHint() {
+function generateHint(guess) {
   // your code here
+  let solutionArray = solution.split('')
+  let guessArray = guess.split('')
+  let correctLetterLocations = 0
+  for (let i = 0; i < solutionArray.length; i++) {
+      if (solutionArray[i] === guessArray[i]) {
+         correctLetterLocations++;
+         solutionArray[i] = null; 
+
+      }
+      }
+      let correctLetters = 0
+      for (let i = 0; i <solutionArray.length; i++) {
+        let targetIndex = solutionArray.indexOf(guessArray[i])
+        if (targetIndex > -1) {
+          correctLetters++;
+          solutionArray[targetIndex] = null;
+        }
+      }
+      return `${correctLetterLocations}-${correctLetters}`;
+      
 }
 
+// function addHint(guess) {
+//   let hint = generateHint(guess);
+//   board.push(hint)
+// }
+
 function mastermind(guess) {
-  solution = 'abcd'; // Comment this out to generate a random solution
+   // Comment this out to generate a random solution
   // your code here
+  const solution = 'abcd';
+
+  //if (guess.length === 4 && guess !== solution) {
+  //generateHint(guess)
+  //} 
+   if (solution === guess) {
+    console.log("You guessed it!")
+    return "You guessed it!"    
+  } //else {
+    else if (solution != guess) {
+    let hint = generateHint(guess);
+    board.push(`${guess}-${hint}`);
+    console.log("try again");
+    console.log(`${board.length}`)
+
+    //return 'try again'
+    
+  } else if (board.length === 10) {
+
+     console.log('You ran out of turns! The solution was ' && solution)
+     return console.log('You ran out of turns! The solution was ' && solution)
+   }
 }
 
 
