@@ -79,8 +79,8 @@ function mastermind(guess) {
     
   } else if (board.length === 10) {
 
-     console.log('You ran out of turns! The solution was ' && solution)
-     return console.log('You ran out of turns! The solution was ' && solution)
+     console.log('You ran out of turns! The solution is ' && solution)
+     return console.log('You ran out of turns! The solution is ' && solution)
    }
 }
 
