@@ -8,13 +8,33 @@ const rl = readline.createInterface({
 });
 
 
-function Checker() {
+class Checker(color) {
   // Your code here
+  this.symbol = ""
+  this.color = color
+  if(color == "white") {
+    this.symbol = String.fromCharCode(0x125CB)
+  }
+  else
+    this.symbol = String.fromCharCode(0x125CF)
 }
+
+
 
 class Board {
   constructor() {
-    this.grid = []
+    this.grid = [
+    ]
+    this.checkers = []
+    this.createCheckers = []
+    
+    // var whitePositions = [[0, 1], [0, 3], [0, 5], [0, 7],
+    //                      [1, 0], [1, 2], [1, 4], [1, 6],
+    //                      [2, 1], [2, 3], [2, 5], [2, 7]];
+    // var blackPositions = [[5, 0], [5, 2], [5, 4], [5, 6],
+    //                      [6, 1], [6, 3], [6, 5], [6, 7],
+    //                      [7, 0], [7, 2], [7, 4], [7, 6]];
+    // ]
   }
   // method that creates an 8x8 array, filled with null values
   createGrid() {
@@ -24,7 +44,7 @@ class Board {
       // push in 8 columns of nulls
       for (let column = 0; column < 8; column++) {
         this.grid[row].push(null);
-      }
+      } 
     }
   }
   viewGrid() {
@@ -51,8 +71,7 @@ class Board {
     }
     console.log(string);
   }
-
-  // Your code here
+  
 }
 
 class Game {
@@ -61,6 +80,7 @@ class Game {
   }
   start() {
     this.board.createGrid();
+    
   }
 }
 
