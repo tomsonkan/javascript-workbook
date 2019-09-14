@@ -8,13 +8,27 @@ const rl = readline.createInterface({
 });
 
 
-function Checker() {
+class Checker(color) {
   // Your code here
+  this.symbol = ""
+  this.color = color
+  if(color == "white") {
+    this.symbol = String.fromCharCode(0x125CB)
+  }
+  else
+    this.symbol = String.fromCharCode(0x125CF)
 }
+
+
 
 class Board {
   constructor() {
-    this.grid = []
+    this.grid = [
+    ]
+    this.checkers = []
+    this.createCheckers = []
+    
+   
   }
   // method that creates an 8x8 array, filled with null values
   createGrid() {
@@ -24,7 +38,7 @@ class Board {
       // push in 8 columns of nulls
       for (let column = 0; column < 8; column++) {
         this.grid[row].push(null);
-      }
+      } 
     }
   }
   viewGrid() {
@@ -51,8 +65,7 @@ class Board {
     }
     console.log(string);
   }
-
-  // Your code here
+  
 }
 
 class Game {
@@ -61,6 +74,7 @@ class Game {
   }
   start() {
     this.board.createGrid();
+    
   }
 }
 
