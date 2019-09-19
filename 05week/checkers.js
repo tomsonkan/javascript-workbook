@@ -7,14 +7,60 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-
-function Checker() {
-  // Your code here
+function nextTurn () {
+  if(playerTurn === blackChecker) {
+    playerTurn = redChecker
+  } else {
+    playerTurn = blackChecker
+  }
 }
+
+class Checker {
+  constructor (color){
+    if(color === 'red'){
+      this.symbol = 'r';
+      this.color = color;
+    } else {
+      this.symbol = 'b';
+      this.color = color;
+    }
+  }
+}
+
+const isEmpty = (endx, endy) => {
+  if(game.board.grid[endx][endy] === null){
+    return true;
+  }
+}
+
+const redChecker = new Checker('red');
+const blackChecker = new Checker('black');
+let playerTurn = blackChecker;
+
+const validMove = function (startx, starty, endx, endy, whichPiece, toWhere) {
+  // if(validMove(startx, starty, endx, endy, whichPiece, toWhere)){
+
+  if(playerTurn === blackChecker) {
+    console.log(starty, endy)
+    console.log ((starty - endy === 1))
+    if(((startx - endx === -1) || (startx - endx === 1)) && (starty - endy === 1) && endx < 8 && endy < 8) {
+      return true
+    }  
+  } else if (playerTurn === redChecker) {
+      if(((startx - endx === -1) || (startx - endx === 1)) && (starty - endy === -1) && endx < 8 && endy < 8) {
+        return true } 
+  }else return false
+}
+
+
+// function Checker() {
+//   // Your code here
+// }
 
 class Board {
   constructor() {
     this.grid = []
+    this.checkers = []
   }
   // method that creates an 8x8 array, filled with null values
   createGrid() {
@@ -51,9 +97,36 @@ class Board {
     }
     console.log(string);
   }
-
-  // Your code here
-}
+   setPieces(){
+     for (let r = 0; r < 8; r++){
+       if( r < 3) {
+         for (let c = 0; c < 8; c++) {
+           if ((r % 2 == 0) && (c % 2 != 0)) {
+             //put piece here
+            this.grid[r][c] = redChecker
+            this.checkers.push(redChecker)
+           } else if ((r % 2 != 0) && (c % 2 == 0)) {
+             //put other piece
+             this.grid[r][c] = redChecker
+             this.checkers.push(redChecker)
+           }
+          }
+        } else if (r > 4) {
+            for (let c = 0; c < 8; c++) {
+              if ((r % 2 == 0) && (c % 2 != 0)) {
+                //put piece here
+               this.grid[r][c] = blackChecker
+               this.checkers.push(blackChecker)
+              } else if ((r % 2 != 0) && (c % 2 == 0)) {
+                //put other piece
+                this.grid[r][c] = blackChecker
+                this.checkers.push(blackChecker)
+          }  
+        }
+      }
+    } console.log(this.checkers.length)
+  } 
+} 
 
 class Game {
   constructor() {
@@ -61,7 +134,27 @@ class Game {
   }
   start() {
     this.board.createGrid();
+    this.board.setPieces();
   }
+  moveChecker(whichPiece, toWhere) {
+    let start = whichPiece.split("");
+    let end = toWhere.split("");
+    let starty = start[0];
+    let startx = start[1];
+    let endy = end[0];
+    let endx = end[1];
+
+    if(validMove(startx, starty, endx, endy, whichPiece, toWhere)){
+      
+        let x = this.board.grid[whichPiece[0]][whichPiece[1]];
+        this.board.grid[whichPiece[0]][whichPiece[1]] = null;
+        this.board.grid[toWhere[0]][toWhere[1]] = x;
+
+        //this.board.splice(this.checkers.indexOf(this.grid[startx][starty]));
+        nextTurn();
+
+  }
+}
 }
 
 function getPrompt() {
