@@ -7,6 +7,7 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
+//swwitch to red checker if playerTurn is for the black checker
 function nextTurn () {
   if(playerTurn === blackChecker) {
     playerTurn = redChecker
@@ -15,6 +16,7 @@ function nextTurn () {
   }
 }
 
+// if color is red then assign "r" and if color is black assign "b"
 class Checker {
   constructor (color){
     if(color === 'red'){
@@ -27,19 +29,20 @@ class Checker {
   }
 }
 
+//end piece needs to be empty
 const isEmpty = (endx, endy) => {
   if(game.board.grid[endx][endy] === null){
     return true;
   }
 }
 
+//identify checker pieces
 const redChecker = new Checker('red');
 const blackChecker = new Checker('black');
 let playerTurn = blackChecker;
 
+//validMove has to be forward and diagonal
 const validMove = function (startx, starty, endx, endy, whichPiece, toWhere) {
-  // if(validMove(startx, starty, endx, endy, whichPiece, toWhere)){
-
   if(playerTurn === blackChecker) {
     console.log(starty, endy)
     console.log ((starty - endy === 1))
@@ -100,32 +103,74 @@ class Board {
    setPieces(){
      for (let r = 0; r < 8; r++){
        if( r < 3) {
+        // row number has to be less than 3
          for (let c = 0; c < 8; c++) {
+           //column number has to be less than 8
            if ((r % 2 == 0) && (c % 2 != 0)) {
-             //put piece here
+             //put piece here for even number rows and odd columns
             this.grid[r][c] = redChecker
             this.checkers.push(redChecker)
            } else if ((r % 2 != 0) && (c % 2 == 0)) {
-             //put other piece
+             //put piece here for odd number rows and even columns
              this.grid[r][c] = redChecker
              this.checkers.push(redChecker)
            }
           }
         } else if (r > 4) {
+          // row number has to be less than 3
             for (let c = 0; c < 8; c++) {
+              //column number has to be less than 8
               if ((r % 2 == 0) && (c % 2 != 0)) {
-                //put piece here
+                //put piece here for even number rows and odd columns
                this.grid[r][c] = blackChecker
                this.checkers.push(blackChecker)
               } else if ((r % 2 != 0) && (c % 2 == 0)) {
-                //put other piece
+                //put piece here for odd number rows and even columns
                 this.grid[r][c] = blackChecker
                 this.checkers.push(blackChecker)
           }  
         }
       }
     } console.log(this.checkers.length)
+  }
+  jumpPiece (startx, starty, whichPiece, toWhere) {
+    // console.log(whichPiece - toWhere === 18 || whichPiece - toWhere === -18 || whichPiece - toWhere === 22 || whichPiece - toWhere === -22 , " jumpPiece")
+    // console.log(starty - 1, parseInt(startx) + 1 , "check")
+    // console.log( playerTurn === blackChecker)
+    if (whichPiece - toWhere === 18 || whichPiece - toWhere === -18 || whichPiece - toWhere === 22 || whichPiece - toWhere === -22) {
+      // console.log(this.grid[starty - 1][parseInt(startx) - 1])
+      // console.log(this.grid[starty - 1][parseInt(startx) + 1])
+      // console.log( (this.grid[starty - 1][parseInt(startx) - 1] !== null) + " hello")
+      // console.log( (this.grid[starty - 1][parseInt(startx) + 1] !== null) + " hello2")
+      // console.log((this.grid[starty - 1][parseInt(startx) - 1].color !== playerTurn.color) + "hello3")
+      // console.log((this.grid[starty - 1][parseInt(startx) + 1].color !== playerTurn.color) + "hello3")
+//
+        if(playerTurn === blackChecker && playerTurn === this.grid[whichPiece[0]][whichPiece[1]] && ((this.grid[starty - 1][parseInt(startx) - 1] !== null && this.grid[starty - 1][parseInt(startx) - 1].color !== playerTurn.color) || (this.grid[starty - 1][parseInt(startx) + 1] !== null && this.grid[starty - 1][parseInt(startx) + 1].color !== playerTurn.color))) {
+          console.log('wahh', playerTurn)
+          let x = this.grid[whichPiece[0]][whichPiece[1]];
+          this.grid[whichPiece[0]][whichPiece[1]] = null;
+          this.grid[whichPiece[0] - 1][parseInt(whichPiece[1]) + 1] = null;
+          this.grid[whichPiece[0] - 1][parseInt(whichPiece[1]) - 1] = null;
+          console.log(this.grid[whichPiece[0] - 1][parseInt(whichPiece[1]) + 1])
+          console.log(this.grid[whichPiece[0] - 1][parseInt(whichPiece[1]) - 1])
+          this.grid[toWhere[0]][toWhere[1]] = x;
+          this.checkers.splice(this.checkers.indexOf(this.grid[starty][startx]))
+          console.log(this.checkers.length + "hello")
+          ; 
+        } else 
+          if (playerTurn === redChecker && playerTurn === this.grid[whichPiece[0]][whichPiece[1]] && ((this.grid[starty - 1][parseInt(startx) - 1] !== null && this.grid[parseInt(starty) + 1][parseInt(startx) + 1].color !== playerTurn.color) || (this.grid[parseInt(starty) + 1][parseInt(startx) - 1] !== null && this.grid[parseInt(starty) + 1][parseInt(startx) - 1].color !== playerTurn.color))) {
+          let x = this.grid[whichPiece[0]][whichPiece[1]];
+          this.grid[parseInt(starty)][parseInt(startx)] = null;
+          console.log("ayhekas", playerTurn)
+          console.log(this.grid[parseInt(starty) + 1][parseInt(whichPiece[1]) - 1])
+          this.grid[parseInt(starty) + 1][parseInt(startx) + 1] = null;
+          this.grid[parseInt(starty) + 1][parseInt(startx) - 1] = null;
+          this.grid[toWhere[0]][toWhere[1]] = x;
+          this.checkers.splice(this.checkers.indexOf(this.grid[starty][startx]))
+          console.log(this.checkers.length + "hello2")     
+    }
   } 
+}
 } 
 
 class Game {
@@ -136,25 +181,42 @@ class Game {
     this.board.createGrid();
     this.board.setPieces();
   }
+
+  
   moveChecker(whichPiece, toWhere) {
+    //split whichPiece into two numbers
     let start = whichPiece.split("");
+    //split toWhere into two numbers
     let end = toWhere.split("");
+    //starty is the first number
     let starty = start[0];
+    //startx is second number
     let startx = start[1];
+    //endy is first number
     let endy = end[0];
+    //endx is second number
     let endx = end[1];
+    console.log(this.board.grid[starty - 1][startx - 1])
 
+    
+    //has to input a valid move 
     if(validMove(startx, starty, endx, endy, whichPiece, toWhere)){
-      
+        console.log("EACH MOVE", playerTurn)
+        // x determines which piece is selected
         let x = this.board.grid[whichPiece[0]][whichPiece[1]];
+        // the location of the selected piece will be null once moved
         this.board.grid[whichPiece[0]][whichPiece[1]] = null;
+        //to where on the board the user inputs, the selected piece will be moved 
         this.board.grid[toWhere[0]][toWhere[1]] = x;
-
-        //this.board.splice(this.checkers.indexOf(this.grid[startx][starty]));
+        //after the piece is moved, it switches to the other players turn
         nextTurn();
-
+      } else if (startx - endx == 2 || endx - startx == 2) {
+        console.log("EACH MOVE", playerTurn)
+        //if it is not just a normal valid move, it checks if it is to jumpPiece the opponent.
+        this.board.jumpPiece(startx, starty, whichPiece, toWhere)
+        nextTurn()
+    }
   }
-}
 }
 
 function getPrompt() {
