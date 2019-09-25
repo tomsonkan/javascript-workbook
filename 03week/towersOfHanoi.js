@@ -22,32 +22,27 @@ function printStacks() {
 function movePiece(startStack, endStack) {
   // Your code here
 let start = stacks[startStack];
+//define which array you want to remove from 
 let end = stacks[endStack];
-//var starts = start.toLowerCase().trim();
-//var ends = end.toLowerCase().trim();
+//define which array you want to add to
 let lastNumber = start.pop();
+//remove last number in starting stack
   console.log(lastNumber);
 end.push(lastNumber);
+//add to last number in ending stack
   console.log(end);
 checkForWin();
-
-  // let start = startStack;
-  // let end = endStack;
-  // let stackA = stacks.a;
-  // let stackB = stacks.b;
-  // if ((start === "a" && end === "b")) {
-  // stackA.pop();
-  // stackB.push();
-  // console.log(stacks.a)
-  //}
+//reset()
 }
 
 function isLegal(startInput, endInput) {
     console.log('start', startInput)
     console.log('end', endInput)
   let endlastElement = endInput[endInput.length - 1];
+  //define last number in the end stack
     console.log(startInput[startInput.length-1] < endlastElement || endlastElement === undefined)
   if(startInput[startInput.length-1] < endlastElement || endlastElement === undefined) {
+  //if last value of start stack is < last value in the end stack or if the last element is undefined 
     console.log(endlastElement);
     console.log('here2')
     return true;
@@ -60,12 +55,25 @@ function isLegal(startInput, endInput) {
 
 
 function checkForWin() {
-  let stacksWin = stacks.b.length || stacks.c.length;
-
-  if (stacksWin > 3) {
+  let stacksWinB = stacks.b.length 
+  let stacksWinC = stacks.c.length;
+  let stacksa = stacks.a
+  let stacksb = stacks.b
+  let stacksc = stacks.c
+// if stack b or c has more than 3 numbers, then Winner!!!
+  
+  if (stacksWinB > 3) {
     console.log("Winner!!!!");
+    stacksb.splice(0, 4);
+    stacksa.push(4, 3, 2, 1);
+// splice all elements from row b and push onto row a
     return true
-  }  
+  }  else if(stacksWinC > 3) {
+    console.log("Winner!!!!");
+    stacksc.splice(0, 4);
+    stacksa.push(4, 3, 2, 1);
+// splice all elements from row c and push onto row a
+  }
   else {
     return false}
 
@@ -74,24 +82,29 @@ function checkForWin() {
 
 //parent function
 function towersOfHanoi(startStack, endStack) {
-  // Your code here
   const startInput = stacks[startStack];
+  //define starting stack
   const endInput = stacks[endStack];
+  //define ending stack
   if (isLegal(startInput, endInput)) {
       movePiece(startStack, endStack);
-      
+  // if move is legal then allow the piece to be moved    
   }
   else {
     console.log('invalid')
     return false
+  // otherwise it is invalid
   }
 }
 
 function getPrompt() {
   printStacks();
   rl.question('start stack: ', (startStack) => {
+  //ask for starting stack
     rl.question('end stack: ', (endStack) => {
+    //ask for ending stack
       towersOfHanoi(startStack, endStack);
+      //then run the parent function
       getPrompt();
     });
   });

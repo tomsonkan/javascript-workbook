@@ -15,7 +15,6 @@ function nextTurn () {
     playerTurn = blackChecker
   }
 }
-
 // if color is red then assign "r" and if color is black assign "b"
 class Checker {
   constructor (color){
@@ -73,7 +72,7 @@ class Board {
       // push in 8 columns of nulls
       for (let column = 0; column < 8; column++) {
         this.grid[row].push(null);
-      }
+      } 
     }
   }
   viewGrid() {
