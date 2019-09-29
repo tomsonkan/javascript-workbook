@@ -156,7 +156,8 @@ const makePlayer = ( id ) => {
     const listElement = document.getElementById('players')
     document.getElementById('players').innerHTML = ''
   
-//mapping of how to display on the listOfPlayers arrary. Each person will contain buttons for red team, blue team, and RemovePlayer
+//mapping of how to display on the listOfPlayers arrary. Each person will contain buttons for red team, blue team, and RemovePlayer. Having trouble 
+//figuring out how to display automatically. It will not display until another element has been added to the array
     listOfPlayers.map(person => {
       const li = document.createElement("li")
       const button = document.createElement("button")
@@ -196,7 +197,6 @@ const red_Team = (id) => {
       const button = document.createElement("button")
       button.innerHTML = "Remove"
       button.addEventListener('click', function(e) {RemoveRed(person.id, e)} )
-      // li.appendChild(button) 
       li.appendChild(button)
       listElement.append(li)
       // makePlayer()
@@ -216,7 +216,6 @@ const blue_Team = (id) => {
     const button = document.createElement("button")
     button.innerHTML = "Remove"
     button.addEventListener('click', function(e) {RemoveBlue(person.id, e)} )
-    // li.appendChild(button) 
     li.appendChild(button)
     listElement.append(li)  
     // makePlayer()
@@ -263,7 +262,6 @@ const RemoveBlue = (id) => {
     const button = document.createElement("button")
     button.innerHTML = "Remove"
     button.addEventListener('click', function() {RemoveBlue(person.id)} )
-    // li.appendChild(button) 
     li.appendChild(button)
     listElement.append(li)  
 })
