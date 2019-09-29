@@ -52,10 +52,6 @@ const arrOfPeople = [
   },
 ]
 
-// arrOfSkills = [
-//   {
-// }
-// ]
 
 const listOfPlayers = []
 const blueTeam = []
@@ -83,14 +79,14 @@ class dodgeBallPlayer extends people {
 class blueTeammate extends dodgeBallPlayer{
   constructor(color, mascot, canThrowBall, canDodgeBall, hasPaid, isHealthy, yearsExperience){
     super(canThrowBall, canDodgeBall, hasPaid, isHealthy, yearsExperience)
-    this.color = blue;
+    this.color = color;
     this.mascot = "blue jay"
   }
 }
 class redTeammate extends dodgeBallPlayer{
   constructor(color, mascot, canThrowBall, canDodgeBall, hasPaid, isHealthy, yearsExperience){
     super(canThrowBall, canDodgeBall, hasPaid, isHealthy, yearsExperience)
-    this.color = red;
+    this.color = color;
     this.mascot = "cardinal";
   }
 }
@@ -110,6 +106,7 @@ const listPeopleChoices = () => {
   })
 };
 
+//splice's from arrOfPeople array and pushes it to the listOfPlayers array
 const makePlayer = ( id ) => {
   const listElement = document.getElementById('players')
   listElement.innerHTML = ''
@@ -117,9 +114,9 @@ const makePlayer = ( id ) => {
   let x = arrOfPeople.findIndex(x => x.id === id)
   listOfPlayers.push(arrOfPeople[x])
   arrOfPeople.splice(x, 1)
-  
     console.log(listOfPlayers, arrOfPeople)
 
+//mapping of how to display on the listOfPlayers arrary. Each person will contain buttons for red team, blue team, and RemovePlayer
     listOfPlayers.map(person => { 
       const li = document.createElement("li")
       const button = document.createElement("button")
@@ -148,6 +145,8 @@ const makePlayer = ( id ) => {
 
   })
 }
+
+//function to RemovePlayer from the arrOfPeople and put back to the listOfPlayers
   const RemovePlayer = (id) => {
     console.log('removing', listOfPlayers, 'red', redTeam)
   
@@ -157,10 +156,9 @@ const makePlayer = ( id ) => {
     const listElement = document.getElementById('players')
     document.getElementById('players').innerHTML = ''
   
+//mapping of how to display on the listOfPlayers arrary. Each person will contain buttons for red team, blue team, and RemovePlayer
     listOfPlayers.map(person => {
       const li = document.createElement("li")
-      
-      
       const button = document.createElement("button")
       button.innerHTML = "red Team"
       button.addEventListener('click', function() {red_Team(person.id)} )
@@ -172,10 +170,9 @@ const makePlayer = ( id ) => {
       listElement.append(li)
       const button2 = document.createElement("button")
       button2.innerHTML = "Remove"
-      button2.addEventListener('click', function() {RemovePlayer(person.id)} )
+      button2.addEventListener('click', function(e) {RemovePlayer(person.id)} )
       li.appendChild(button2)
       listElement.append(li)
-
       li.appendChild(document.createTextNode(person.name + " - " + person.skillSet))
       listElement.append(li)
 
@@ -184,25 +181,25 @@ const makePlayer = ( id ) => {
   }
 
 const red_Team = (id) => {
-  let redTeamPlayers = document.getElementById('red');
-  redTeamPlayers.innerHTML = ''
+  // let redTeamPlayers = document.getElementById('red');
+  // redTeamPlayers.innerHTML = ''
     let x = listOfPlayers.findIndex(x => x.id === id)
     console.log('as', listOfPlayers, redTeam)
     redTeam.push(listOfPlayers[x])
-    listOfPlayers.splice(x, 1);
+    var redplayer = listOfPlayers.splice(x, 1);
     const listElement = document.getElementById('red')
     console.log(listOfPlayers, arrOfPeople)
-    redTeam.map(person => {
+    redplayer.map(person => {
       const li = document.createElement("li")
       li.appendChild(document.createTextNode(person.name + " - " + person.skillSet))
-      
+      listElement.append(li)
       const button = document.createElement("button")
       button.innerHTML = "Remove"
-      button.addEventListener('click', function() {RemoveRed(person.id)} )
+      button.addEventListener('click', function(e) {RemoveRed(person.id, e)} )
       // li.appendChild(button) 
       li.appendChild(button)
       listElement.append(li)
-      makePlayer()
+      // makePlayer()
     })
 }
 
@@ -213,16 +210,16 @@ const blue_Team = (id) => {
   const listElement = document.getElementById('blue')
   console.log(listOfPlayers, blueplayer, 'reeeddrg')
   blueplayer.map(person => {
-  const li = document.createElement("li")
-  li.appendChild(document.createTextNode(person.name + " - " + person.skillSet))
-  listElement.append(li)
-  const button = document.createElement("button")
+    const li = document.createElement("li")
+    li.appendChild(document.createTextNode(person.name + " - " + person.skillSet))
+    listElement.append(li)
+    const button = document.createElement("button")
     button.innerHTML = "Remove"
-    button.addEventListener('click', function() {RemoveBlue(person.id)} )
+    button.addEventListener('click', function(e) {RemoveBlue(person.id, e)} )
     // li.appendChild(button) 
     li.appendChild(button)
     listElement.append(li)  
-    makePlayer()
+    // makePlayer()
 })
 }
 
@@ -238,11 +235,9 @@ const RemoveRed = (id) => {
   console.log('red team:', redTeam)
   const listElement = document.getElementById('red')
   document.getElementById('red').innerHTML = ''
-
   redTeam.map(person => {
     const li = document.createElement("li")
     li.appendChild(document.createTextNode(person.name + " - " + person.skillSet))
-    
     const button = document.createElement("button")
     button.innerHTML = "Remove"
     button.addEventListener('click', function() {RemoveRed(person.id)} )
@@ -264,8 +259,7 @@ const RemoveBlue = (id) => {
   document.getElementById('blue').innerHTML = ''
   blueTeam.map(person => {
     const li = document.createElement("li")
-    li.appendChild(document.createTextNode(person.name + " - " + person.skillSet))
-    
+    li.appendChild(document.createTextNode(person.name + " - " + person.skillSet))  
     const button = document.createElement("button")
     button.innerHTML = "Remove"
     button.addEventListener('click', function() {RemoveBlue(person.id)} )
