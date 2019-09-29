@@ -52,7 +52,10 @@ const arrOfPeople = [
   },
 ]
 
-
+// arrOfSkills = [
+//   {
+// }
+// ]
 
 const listOfPlayers = []
 const blueTeam = []
@@ -93,7 +96,9 @@ class redTeammate extends dodgeBallPlayer{
 }
 
 const listPeopleChoices = () => {
+  console.log("hello")
   const listElement = document.getElementById('people')
+  document.getElementById('people').innerHTML = ''
   arrOfPeople.map(person => {
     const li = document.createElement("li")
     const button = document.createElement("button")
@@ -103,9 +108,177 @@ const listPeopleChoices = () => {
     li.appendChild(document.createTextNode(person.name + " - " + person.skillSet))
     listElement.append(li)
   })
+};
+
+const makePlayer = ( id ) => {
+  const listElement = document.getElementById('players')
+  listElement.innerHTML = ''
+  console.log(`new player: ${listOfPlayers}`)
+  let x = arrOfPeople.findIndex(x => x.id === id)
+  listOfPlayers.push(arrOfPeople[x])
+  arrOfPeople.splice(x, 1)
+  
+    console.log(listOfPlayers, arrOfPeople)
+
+    listOfPlayers.map(person => { 
+      const li = document.createElement("li")
+      const button = document.createElement("button")
+      button.innerHTML = "red Team"
+      button.addEventListener('click', function() {red_Team(person.id)} )
+      li.appendChild(button)  
+      const button1 = document.createElement("button")
+      button1.innerHTML = "blue Team"
+      button1.addEventListener('click', function() {blue_Team(person.id)} )
+      li.appendChild(button1)
+      listElement.append(li)
+      const button2 = document.createElement("button")
+      button2.innerHTML = "Remove"
+      button2.addEventListener('click', function() {RemovePlayer(person.id)} )
+      li.appendChild(button2)
+      listElement.append(li)
+      li.appendChild(document.createTextNode(person.name + " - " + person.skillSet))
+      listElement.append(li)
+      
+      listElement.addEventListener('click', (e) => {
+        console.log(e.target)
+        if(e.target.nodeName === 'BUTTON') {
+          e.target.parentNode.remove()
+        }
+      })
+
+  })
+}
+  const RemovePlayer = (id) => {
+    console.log('removing', listOfPlayers, 'red', redTeam)
+  
+    let x = listOfPlayers.findIndex(x => x.id === id)
+    arrOfPeople.push(listOfPlayers[x])
+    listOfPlayers.splice(x, 1)
+    const listElement = document.getElementById('players')
+    document.getElementById('players').innerHTML = ''
+  
+    listOfPlayers.map(person => {
+      const li = document.createElement("li")
+      
+      
+      const button = document.createElement("button")
+      button.innerHTML = "red Team"
+      button.addEventListener('click', function() {red_Team(person.id)} )
+      li.appendChild(button)  
+      const button1 = document.createElement("button")
+      button1.innerHTML = "blue Team"
+      button1.addEventListener('click', function() {blue_Team(person.id)} )
+      li.appendChild(button1)
+      listElement.append(li)
+      const button2 = document.createElement("button")
+      button2.innerHTML = "Remove"
+      button2.addEventListener('click', function() {RemovePlayer(person.id)} )
+      li.appendChild(button2)
+      listElement.append(li)
+
+      li.appendChild(document.createTextNode(person.name + " - " + person.skillSet))
+      listElement.append(li)
+
+    })
+  
+  }
+
+const red_Team = (id) => {
+  let redTeamPlayers = document.getElementById('red');
+  redTeamPlayers.innerHTML = ''
+    let x = listOfPlayers.findIndex(x => x.id === id)
+    console.log('as', listOfPlayers, redTeam)
+    redTeam.push(listOfPlayers[x])
+    listOfPlayers.splice(x, 1);
+    const listElement = document.getElementById('red')
+    console.log(listOfPlayers, arrOfPeople)
+    redTeam.map(person => {
+      const li = document.createElement("li")
+      li.appendChild(document.createTextNode(person.name + " - " + person.skillSet))
+      
+      const button = document.createElement("button")
+      button.innerHTML = "Remove"
+      button.addEventListener('click', function() {RemoveRed(person.id)} )
+      // li.appendChild(button) 
+      li.appendChild(button)
+      listElement.append(li)
+      makePlayer()
+    })
 }
 
-const makePlayer = (id, age, name, skillSet, placeBorn) => {
-  console.log(`li ${id} was clicked!`)
-  
+const blue_Team = (id) => {
+  let x = listOfPlayers.findIndex(x => x.id === id)
+  blueTeam.push(listOfPlayers[x])
+  var blueplayer = listOfPlayers.splice(x, 1)
+  const listElement = document.getElementById('blue')
+  console.log(listOfPlayers, blueplayer, 'reeeddrg')
+  blueplayer.map(person => {
+  const li = document.createElement("li")
+  li.appendChild(document.createTextNode(person.name + " - " + person.skillSet))
+  listElement.append(li)
+  const button = document.createElement("button")
+    button.innerHTML = "Remove"
+    button.addEventListener('click', function() {RemoveBlue(person.id)} )
+    // li.appendChild(button) 
+    li.appendChild(button)
+    listElement.append(li)  
+    makePlayer()
+})
 }
+
+
+
+
+const RemoveRed = (id) => {
+  console.log('removing', listOfPlayers, 'red', redTeam)
+
+  let x = redTeam.findIndex(x => x.id === id)
+  listOfPlayers.push(redTeam[x])
+  redTeam.splice(x, 1)
+  console.log('red team:', redTeam)
+  const listElement = document.getElementById('red')
+  document.getElementById('red').innerHTML = ''
+
+  redTeam.map(person => {
+    const li = document.createElement("li")
+    li.appendChild(document.createTextNode(person.name + " - " + person.skillSet))
+    
+    const button = document.createElement("button")
+    button.innerHTML = "Remove"
+    button.addEventListener('click', function() {RemoveRed(person.id)} )
+    li.appendChild(button)
+    listElement.append(li)
+    
+  })
+
+}
+
+const RemoveBlue = (id) => {
+  console.log('removing', listOfPlayers, 'red', blueTeam)
+
+  let x = blueTeam.findIndex(x => x.id === id)
+  listOfPlayers.push(blueTeam[x])
+  blueTeam.splice(x, 1)
+  console.log('red team:', blueTeam)
+  const listElement = document.getElementById('blue')
+  document.getElementById('blue').innerHTML = ''
+  blueTeam.map(person => {
+    const li = document.createElement("li")
+    li.appendChild(document.createTextNode(person.name + " - " + person.skillSet))
+    
+    const button = document.createElement("button")
+    button.innerHTML = "Remove"
+    button.addEventListener('click', function() {RemoveBlue(person.id)} )
+    // li.appendChild(button) 
+    li.appendChild(button)
+    listElement.append(li)  
+})
+
+}
+
+  //new object with player names
+// const newPlayer = new dodgeBallPlayer (`${arrOfPeople[id - 1].name}, ${arrOfPeople[id - 1].skillSet}, ${arrOfPeople[id - 1].id}`);
+
+// console.log(`new player: ${newPlayer.canThrowBall}, ${newPlayer.canDodgeBall}, ${newPlayer.hasPaid}, ${newPlayer.isHealthy}, ${newPlayer.yearsExperience}`);
+
+// listOfPlayers.push(newPlayer)
