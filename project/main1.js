@@ -29,7 +29,6 @@ function getPosts() {
           <li>${user.location.city}, ${user.location.state}</li>
           <li>${user.email}</li>
             </div>
-            //Added in button but already displayed????
               <button onclick="getPosts2()">Addl Info</button>
                 <ul>
                 <li>${user.location.street}, ${user.dob.date}</li>
