@@ -91,13 +91,3 @@ function getPosts2() {
 //can learn how to build fetch requests and work with other apis 
 //and become a real developer!!
 
-// function getJson() {
-
-//   fetch('color.json')
-//     .then((dinh) => dinh.json())
-//     .then((data) => {
-//       console.log(data)
-//     }
-    
-//     )
-// }
