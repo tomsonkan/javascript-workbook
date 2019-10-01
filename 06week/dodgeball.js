@@ -143,7 +143,7 @@ const makePlayer = ( id ) => {
       listElement.append(li)
       li.appendChild(document.createTextNode(person.name + " - " + person.skillSet))
       listElement.append(li)
-  
+      listPeopleChoices()
   //Display update after click
       listElement.addEventListener('click', (e) => {
         console.log(e.target)
