@@ -143,7 +143,7 @@ const makePlayer = ( id ) => {
       listElement.append(li)
       li.appendChild(document.createTextNode(person.name + " - " + person.skillSet))
       listElement.append(li)
-  
+      listPeopleChoices()
   //Display update after click
       listElement.addEventListener('click', (e) => {
         console.log(e.target)
@@ -189,7 +189,7 @@ const makePlayer = ( id ) => {
   //Add Player name and Skillset at the end of the row
       li.appendChild(document.createTextNode(person.name + " - " + person.skillSet))
       listElement.append(li)
-
+      listPeopleChoices()
     })
   
   }
@@ -254,7 +254,6 @@ const RemoveRed = (id) => {
     button.addEventListener('click', function() {RemoveRed(person.id)} )
     li.appendChild(button)
     listElement.append(li)
-    
   })
 
 }
@@ -277,6 +276,7 @@ const RemoveBlue = (id) => {
     button.addEventListener('click', function() {RemoveBlue(person.id)} )
     li.appendChild(button)
     listElement.append(li)  
+    
 })
 
 }
