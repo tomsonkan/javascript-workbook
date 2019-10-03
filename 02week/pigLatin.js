@@ -9,9 +9,24 @@ const rl = readline.createInterface({
 
 
 function pigLatin(word) {
-
-  // Your code here
-
+var newWord = word.toLowerCase().trim();
+let vowels = [ "a", "e", "i", "o", "u"];
+let splitWord = newWord.split("");
+//let newWord = p1;
+for(let j=0; j <= splitWord.length; j++) {
+  for(let i=0; i <= vowels.length; i++) { 
+    // if(splitWord[j] == vowels[i]) {
+    if(splitWord[0] == vowels[i]) {
+      return newWord + "yay"
+      //return newWord.substr(j).concat(newWord.slice(0, j), "ay");  
+    } else if (splitWord[j] == vowels[i]) {
+      //return newWord + "yay";
+      console.log(j);
+      return newWord.substr(j).concat(newWord.slice(0, j), "ay");  
+    }
+    //console.log(newWord)
+  } 
+  }
 }
 
 
