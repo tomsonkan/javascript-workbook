@@ -97,7 +97,6 @@ function ticTacToe(row, column) {
   checkForWin();
   switchPlayer();
   
-  
   }
   
  
