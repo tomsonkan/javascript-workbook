@@ -75,9 +75,10 @@ function diagonalWin() {
 function checkForWin() {
   
     if(horizontalWin() || verticalWin() || diagonalWin()) {
-      console.log("winner")
+      console.log("winner");
+      return true
     } else {
-      console.log("") 
+      return false
     }
 }
 
@@ -91,10 +92,10 @@ function switchPlayer() {
 }
 }
 
-function ticTacToe(row, column) {]
+function ticTacToe(row, column) {
   board[row][column] = playerTurn;
-  switchPlayer();
   checkForWin();
+  switchPlayer();
   
   }
   
